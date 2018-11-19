@@ -25,6 +25,7 @@ class Course(models.Model):
     major = models.CharField(max_length=128, null=False)
     difficulty = models.CharField(max_length=128, null=False)
     skills = models.CharField(max_length=128, null=False)
+    prereqs = models.ManyToManyField('self')
 
 class Department(models.Model):
     name = models.CharField(max_length=128, null=False)
