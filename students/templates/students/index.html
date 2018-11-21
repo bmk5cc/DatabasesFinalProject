@@ -1,7 +1,22 @@
+{% extends "students/base.html" %}
 {% block content %}
-	{% if user.is_authenticated %}
-             <p class="display-4">Hello, {{ user.username }}</p>
+    <div class="col-3">
+    {% if user.is_authenticated %}
+        <div class="row">
+            <h3>
+                My Courses
+            </h3>
+        </div>
+        {% for class in my_courses %}
+            <div class="row">
+                 {{class.name}}
+            </div>
+        {% endfor %}
 	{% else %}
-             <a class="lead" href="{% url 'login' %}">Log in</a>
-	{% endif %}
+        <div class="col">
+            Please Log in!
+        </div>
+    {% endif %}
+    </div>
+
 {% endblock content %}

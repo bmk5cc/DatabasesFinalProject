@@ -3,7 +3,7 @@
     "model": "students.student",
     "pk": 1,
     "fields": {
-      "name": "Brian King",
+      "name": "bmk5cc",
       "major": "Computer Science",
       "year": 4,
       "gpa": "3.90",
@@ -20,10 +20,10 @@
     "model": "students.student",
     "pk": 2,
     "fields": {
-      "name": "Andrew King",
+      "name": "ak4jd",
       "major": "Computer Science",
       "year": 4,
-      "gpa": "3.95",
+      "gpa": "3.7",
       "departments": [1],
       "courses": [1, 4, 5, 6, 9]
     }
