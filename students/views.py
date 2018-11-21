@@ -44,7 +44,7 @@ def add_class(request):
             class_id_int = item.id
         for item in user_id:
             user_id_int = item.id
-        my_prereqs = Student.objects.raw('''SELECT students_course_prereqs.to_course_id as id
+        my_prereqs = Student.objects.raw('''SELECT *
                                              FROM students_course
                                              INNER JOIN students_student_courses
                                              ON students_course.id = students_student_courses.course_id
@@ -55,7 +55,8 @@ def add_class(request):
                                              WHERE students_student.name == %s
                                              AND students_course_prereqs.from_course_id = %s''',
                                             [str(username), class_id_int])
-        class_prereqs = Course.objects.raw('''SELECT students_course_prereqs.to_course_id as id
+
+        class_prereqs = Course.objects.raw('''SELECT *
                                              FROM students_course
                                              INNER JOIN students_course_prereqs
                                              ON students_course_prereqs.from_course_id = students_course.id
@@ -65,14 +66,18 @@ def add_class(request):
         print(class_prereqs)
         my_prereqs_list = []
         print("@@@@@@@")
+        print(my_prereqs.columns)
+        print(class_prereqs.columns)
         for item in my_prereqs:
-            my_prereqs_list.append(item.name)
-            print(item.name)
+            my_prereqs_list.append(item.from_course_id)
+            print(item.from_course_id)
+            print('--')
 
+        print("@@@@@@@@@")
         class_prereqs_list = []
         for item in class_prereqs:
-            class_prereqs_list.append(item.name)
-            print(item.name)
+            class_prereqs_list.append(item.to_course_id)
+            print(item.to_course_id)
 
         if not set(my_prereqs_list)==set(class_prereqs_list):
             return render(request, 'students/index.html', {
