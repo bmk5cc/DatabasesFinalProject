@@ -12,6 +12,20 @@
                  {{class.name}}
             </div>
         {% endfor %}
+        <div class="row">
+            <form method="post" action="/students/add_class/">
+            {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" name="class" placeholder="Add class...">
+                </div>
+                <input type="submit" class="btn btn-success" value="Submit">
+                {% if error %}
+                    <div class="row">
+                        {{ error }}
+                    </div>
+                {% endif %}
+        </form>
+        </div>
 	{% else %}
         <div class="col">
             Please Log in!
