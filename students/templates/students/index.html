@@ -58,6 +58,8 @@
             <li class="list-group-item d-flex">
                 <div class="col" ><b>Name</b></div>
                 <div class="col" ><b>Difficulty</b></div>
+                <div class="col" ><b>Skills</b></div>
+                 <div class="col" ><b>Professor</b></div>
             </li>
         {% for class in allCourse %}
         <div class = 'list-group-item d-flex' >
@@ -66,6 +68,12 @@
             </div>
             <div class = 'col'>
                 {{ class.difficulty }}
+            </div>
+            <div class = 'col'>
+                {{ class.skills }}
+            </div>
+            <div class = 'col'>
+                {{ class.prof }}
             </div>
         </div>
         {% endfor %}
