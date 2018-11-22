@@ -1,6 +1,7 @@
 {% extends "students/base.html" %}
 {% block content %}
-    <div class="col-3">
+
+    <div class="col-3" style = "padding-left: 5em;">
     {% if user.is_authenticated %}
         <div class="row">
             <h3>
@@ -17,6 +18,20 @@
             {% csrf_token %}
                 <div class="form-group">
                     <input type="text" class="form-control" name="class" placeholder="Add class...">
+                </div>
+                <input type="submit" class="btn btn-success" value="Submit">
+                {% if error %}
+                    <div class="row">
+                        {{ error }}
+                    </div>
+                {% endif %}
+        </form>
+        </div>
+         <div class="row">
+            <form method="post" action="/students/deleteClass/">
+            {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" name="class" placeholder="Delete class...">
                 </div>
                 <input type="submit" class="btn btn-success" value="Submit">
                 {% if error %}

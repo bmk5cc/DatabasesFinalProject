@@ -91,8 +91,25 @@ def add_class(request):
 
     return redirect('index',)
 
-
-
+def deleteClass(request):
+    if request.method == 'POST':
+        username = request.user
+        user_id = Student.objects.raw('''SELECT id
+                                        FROM students_student
+                                        WHERE name == %s''', [str(username)])
+        class_name = request.POST['class']
+        class_id = Course.objects.raw('''SELECT id
+                                            FROM students_course
+                                            WHERE name == %s''', [str(class_name)])
+        cursor = connections['default'].cursor()
+        for item in class_id:
+            class_id_int = item.id
+        for item in user_id:
+            user_id_int = item.id
+        cursor.execute('''DELETE FROM students_student_courses
+                                           WHERE students_student_courses.student_id = %s AND  
+                                           students_student_courses.course_id = %s''', [user_id_int, class_id_int])
+    return redirect('index',)
 def login(request):
     return render(request, 'students/login.html')
 
