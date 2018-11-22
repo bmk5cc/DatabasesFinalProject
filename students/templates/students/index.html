@@ -16,10 +16,12 @@
         <div class="row">
             <form method="post" action="/students/add_class/">
             {% csrf_token %}
-                <div class="form-group">
+                <div class="input-group">
                     <input type="text" class="form-control" name="class" placeholder="Add class...">
+                    <span class="input-group-append">
+                        <input type="submit" class="btn btn-success" value="Submit">
+                    </span>
                 </div>
-                <input type="submit" class="btn btn-success" value="Submit">
                 {% if error %}
                     <div class="row">
                         {{ error }}
@@ -27,13 +29,15 @@
                 {% endif %}
         </form>
         </div>
-         <div class="row">
+         <div class="row input-group" style="padding-top: 1em;">
             <form method="post" action="/students/deleteClass/">
             {% csrf_token %}
-                <div class="form-group">
+                <div class="input-group">
                     <input type="text" class="form-control" name="class" placeholder="Delete class...">
+                    <span class="input-group-append">
+                        <input type="submit" class="btn btn-success" value="Submit">
+                    </span>
                 </div>
-                <input type="submit" class="btn btn-success" value="Submit">
                 {% if error %}
                     <div class="row">
                         {{ error }}

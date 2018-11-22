@@ -60,9 +60,9 @@ def add_class(request):
                                              ON students_student_courses.student_id = students_student.id
                                              INNER JOIN students_course_prereqs
                                              ON students_course_prereqs.from_course_id = students_course.id
-                                             WHERE students_student.name == %s
+                                             WHERE students_student.id == %s
                                              AND students_course_prereqs.from_course_id = %s''',
-                                            [str(username), class_id_int])
+                                            [user_id_int, class_id_int])
 
         class_prereqs = Course.objects.raw('''SELECT *
                                              FROM students_course
