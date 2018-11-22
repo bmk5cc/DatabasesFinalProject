@@ -21,8 +21,16 @@ def index(request):
                                      INNER JOIN students_student
                                      ON students_student_courses.student_id = students_student.id
                                      WHERE students_student.name == %s''', [str(username)])
+
+
+
+    rows = Course.objects.raw('''SELECT *
+                        FROM students_course''')
+
+    print(rows.columns)
     return render(request, 'students/index.html', {
         'my_courses': my_courses,
+        'allCourse': rows
     })
 
 def add_class(request):
