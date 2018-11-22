@@ -1,22 +1,21 @@
 {% extends "students/base.html" %}
 {% block content %}
-
     <div class="col-3" style = "padding-left: 5em;">
     {% if user.is_authenticated %}
-        <div class="row">
-            <h3>
+        <ul class="list-group">
+            <h3 class ="list-group-item list-group-item-info">
                 My Courses
             </h3>
-        </div>
         {% for class in my_courses %}
-            <div class="row">
+            <li class="list-group-item">
                  {{class.name}}
-            </div>
+            </li>
         {% endfor %}
+        </ul>
         <div class="row">
             <form method="post" action="/students/add_class/">
             {% csrf_token %}
-                <div class="input-group">
+                <div class="row input-group" style="padding-top: 1em;">
                     <input type="text" class="form-control" name="class" placeholder="Add class...">
                     <span class="input-group-append">
                         <input type="submit" class="btn btn-success" value="Submit">
@@ -51,16 +50,25 @@
         </div>
     {% endif %}
     </div>
-    <div class="col-3" style = "padding-left: 5em;">
-    {% for class in allCourse %}
-    <div class = 'row' >
-        <div class = 'col'>
-            {{ class.name }}
+    <div class="col-8" style = "padding-left: 5em;">
+         <ul class="list-group container">
+            <h3 class ="list-group-item list-group-item-info">
+                All Courses
+            </h3>
+            <li class="list-group-item d-flex">
+                <div class="col-sm-2" >Name</div>
+                <div class="col-sm-2" >Difficulty</div>
+            </li>
+        {% for class in allCourse %}
+        <div class = 'list-group-item d-flex' >
+            <div class = 'col-sm-2'>
+                {{ class.name }}
+            </div>
+            <div class = 'col-sm-2'>
+                {{ class.difficulty }}
+            </div>
         </div>
-        <div class = 'col'>
-            {{ class.difficulty }}
-        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-    </div>
+
 {% endblock content %}

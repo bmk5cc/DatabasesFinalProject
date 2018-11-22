@@ -23,5 +23,6 @@ urlpatterns = [
     path('auth/', include('social_django.urls', namespace='social')),
     path('add_class/', views.add_class, name='add_class'),
     path('deleteClass/', views.deleteClass, name='deleteClass'),
-    path('', views.index, name='index')
+    path('', views.index, name='index'),
+    path('jobs/', views.jobs, name='jobs')
 ]

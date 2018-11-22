@@ -7,7 +7,7 @@ from django.db import connections,transaction
 from django.shortcuts import render
 from django.views.generic import CreateView
 
-from students.models import Student, Course
+from students.models import Student, Course, Job
 
 
 # noinspection SqlNoDataSourceInspection
@@ -21,9 +21,6 @@ def index(request):
                                      INNER JOIN students_student
                                      ON students_student_courses.student_id = students_student.id
                                      WHERE students_student.name == %s''', [str(username)])
-
-
-
     rows = Course.objects.raw('''SELECT *
                         FROM students_course''')
 
@@ -124,3 +121,6 @@ def login(request):
 def logout_view(request):
     logout(request)
     return render(request, 'students/index.html')
+
+def jobs(request):
+    all_jobs = Job.objects.raw()
