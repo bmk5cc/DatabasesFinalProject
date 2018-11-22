@@ -50,17 +50,13 @@ def add_class(request):
             class_id_int = item.id
         for item in user_id:
             user_id_int = item.id
-        my_prereqs = Course.objects.raw('''SELECT *
-                                             FROM students_course
+        my_courses = Student.objects.raw('''SELECT *
+                                             FROM students_course 
                                              INNER JOIN students_student_courses
                                              ON students_course.id = students_student_courses.course_id
                                              INNER JOIN students_student
                                              ON students_student_courses.student_id = students_student.id
-                                             INNER JOIN students_course_prereqs
-                                             ON students_course_prereqs.from_course_id = students_course.id
-                                             WHERE students_student.id == %s
-                                             AND students_course_prereqs.from_course_id = %s''',
-                                            [user_id_int, class_id_int])
+                                             WHERE students_student.name == %s''', [str(username)])
 
         class_prereqs = Course.objects.raw('''SELECT *
                                              FROM students_course
@@ -68,24 +64,21 @@ def add_class(request):
                                              ON students_course_prereqs.from_course_id = students_course.id
                                              WHERE students_course_prereqs.from_course_id = %s''',
                                            [class_id_int])
-        print(my_prereqs)
-        print(class_prereqs)
-        my_prereqs_list = []
-        print("@@@@@@@")
-        print(my_prereqs.columns)
-        print(class_prereqs.columns)
-        for item in my_prereqs:
-            my_prereqs_list.append(item.from_course_id)
-            print(item.from_course_id)
-            print('--')
-
-        print("@@@@@@@@@")
+        my_courses_list = []
+        for item in my_courses:
+            my_courses_list.append(item.id)
+            print(item.id)
+        print("@@@")
         class_prereqs_list = []
         for item in class_prereqs:
             class_prereqs_list.append(item.to_course_id)
             print(item.to_course_id)
 
-        if not set(my_prereqs_list)==set(class_prereqs_list):
+        print("class prereqs")
+        print(set(class_prereqs_list))
+        print("my classes")
+        print(set(my_courses_list))
+        if not set(class_prereqs_list).issubset(set(my_courses_list)):
             return render(request, 'students/index.html', {
                 'error': 'Prereqs not satisfied.'
             })
