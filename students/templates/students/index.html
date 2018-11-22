@@ -56,19 +56,20 @@
                 All Courses
             </h3>
             <li class="list-group-item d-flex">
-                <div class="col-sm-2" >Name</div>
-                <div class="col-sm-2" >Difficulty</div>
+                <div class="col" >Name</div>
+                <div class="col" >Difficulty</div>
             </li>
         {% for class in allCourse %}
         <div class = 'list-group-item d-flex' >
-            <div class = 'col-sm-2'>
+            <div class = 'col'>
                 {{ class.name }}
             </div>
-            <div class = 'col-sm-2'>
+            <div class = 'col'>
                 {{ class.difficulty }}
             </div>
         </div>
         {% endfor %}
+         </ul>
     </div>
 
 {% endblock content %}

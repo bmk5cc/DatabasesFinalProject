@@ -49,7 +49,7 @@ def add_class(request):
             class_id_int = item.id
         for item in user_id:
             user_id_int = item.id
-        my_prereqs = Student.objects.raw('''SELECT *
+        my_prereqs = Course.objects.raw('''SELECT *
                                              FROM students_course
                                              INNER JOIN students_student_courses
                                              ON students_course.id = students_student_courses.course_id
@@ -123,4 +123,8 @@ def logout_view(request):
     return render(request, 'students/index.html')
 
 def jobs(request):
-    all_jobs = Job.objects.raw()
+    all_jobs = Job.objects.raw('''SELECT *
+                        FROM students_job''')
+    return render(request, 'students/jobs.html', {
+        'all_jobs': all_jobs
+    })
