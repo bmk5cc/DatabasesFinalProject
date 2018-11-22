@@ -1,4 +1,5 @@
 {% extends "students/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
     <div class="col-8" style = "padding-left: 5em;">
          <ul class="list-group container">
@@ -6,8 +7,8 @@
                 All Jobs
             </h3>
             <li class="list-group-item d-flex">
-                <div class="col" >Company</div>
-                <div class="col" >Position</div>
+                <div class="col" ><b>Company</b></div>
+                <div class="col" ><b>Position</b></div>
             </li>
         {% for job in all_jobs %}
         <div class = 'list-group-item d-flex' >
@@ -20,5 +21,14 @@
         </div>
         {% endfor %}
          </ul>
+    </div>
+    <div class="col-3">
+        <h3 class="row">Post Job</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ job_form|crispy}}
+            <p>{{ job_form.field.errors.as_text }}</p>
+            <input type="submit" class="btn btn-success" value="Submit">
+        </form>
     </div>
 {% endblock %}

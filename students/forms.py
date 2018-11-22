@@ -1,9 +1,9 @@
 from django.forms import ModelForm
 
-from students.models import Course
+from students.models import Job
 
 
-class AddClassForm(ModelForm):
+class JobForm(ModelForm):
     class Meta:
-        model = Course
-        fields = ['name']
+        model = Job
+        fields = '__all__'

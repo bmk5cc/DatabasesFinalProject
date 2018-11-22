@@ -7,6 +7,7 @@ from django.db import connections,transaction
 from django.shortcuts import render
 from django.views.generic import CreateView
 
+from students.forms import JobForm
 from students.models import Student, Course, Job
 
 
@@ -125,6 +126,12 @@ def logout_view(request):
 def jobs(request):
     all_jobs = Job.objects.raw('''SELECT *
                         FROM students_job''')
+    form = JobForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('/students/jobs')
+
     return render(request, 'students/jobs.html', {
-        'all_jobs': all_jobs
+        'all_jobs': all_jobs,
+        'job_form':form
     })
