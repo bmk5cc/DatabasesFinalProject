@@ -476,7 +476,7 @@
     "fields": {
       "name": "CS 1110",
       "major": "Computer Science",
-      "difficulty": "2.36",
+      "difficulty": "3.33",
       "skills": "Programming, Python",
       "prereqs": []
     }
@@ -487,7 +487,7 @@
     "fields": {
       "name": "CS 1111",
       "major": "Computer Science",
-      "difficulty": "3",
+      "difficulty": "3.65",
       "skills": "Programming, Python",
       "prereqs": []
     }
@@ -498,7 +498,7 @@
     "fields": {
       "name": "CS 1112",
       "major": "Computer Science",
-      "difficulty": "3",
+      "difficulty": "3.35",
       "skills": "Programming, Python",
       "prereqs": []
     }
@@ -509,7 +509,7 @@
     "fields": {
       "name": "CS 2102",
       "major": "Computer Science",
-      "difficulty": "3",
+      "difficulty": "3.09",
       "skills": "Discrete Math, Problem Solving",
       "prereqs": [
         1
@@ -522,7 +522,7 @@
     "fields": {
       "name": "CS 2110",
       "major": "Computer Science",
-      "difficulty": "3",
+      "difficulty": "3.57",
       "skills": "Programming, Java, Problem Solving",
       "prereqs": [
         1
@@ -535,7 +535,7 @@
     "fields": {
       "name": "CS 2150",
       "major": "Computer Science",
-      "difficulty": "3",
+      "difficulty": "2.9",
       "skills": "Programming, C++, Data Structures, Assembly",
       "prereqs": [
         4,
@@ -549,7 +549,7 @@
     "fields": {
       "name": "CS 3102",
       "major": "Computer Science",
-      "difficulty": "3",
+      "difficulty": "3.24",
       "skills": "Grammars, Finite State Machines, Pushdown Automata, Turing Machines",
       "prereqs": [
         4,
@@ -563,7 +563,7 @@
     "fields": {
       "name": "CS 3240",
       "major": "Computer Science",
-      "difficulty": "3",
+      "difficulty": "3.63",
       "skills": "Software Engineering, Django, Scrum, Web Development",
       "prereqs": [
         6
@@ -576,7 +576,7 @@
     "fields": {
       "name": "CS 3330",
       "major": "Computer Science",
-      "difficulty": "3",
+      "difficulty": "3.06",
       "skills": "C, Assembly, ISAs, Processor Design, Virtual Memory, Computer Architecture",
       "prereqs": [
         6
@@ -589,7 +589,7 @@
     "fields": {
       "name": "CS 4102",
       "major": "Computer Science",
-      "difficulty": "3",
+      "difficulty": "3.26",
       "skills": "Algorithms, Problem Solving, Data Structures, Dynamic Programming, Search, Sort",
       "prereqs": [
         6
@@ -602,7 +602,7 @@
     "fields": {
       "name": "CS 4414",
       "major": "Computer Science",
-      "difficulty": "3",
+      "difficulty": "2.54",
       "skills": "Process Communication, Synchronization, Resource Management, File Systems, Operating Systems",
       "prereqs": [
         6,

@@ -22,12 +22,8 @@ def index(request):
                                      INNER JOIN students_student
                                      ON students_student_courses.student_id = students_student.id
                                      WHERE students_student.name == %s''', [str(username)])
-    rows = Course.objects.raw('''SELECT students_course.id, students_course.name, difficulty, skills, students_professor.name AS prof
+    rows = Course.objects.raw('''SELECT students_course.id, students_course.name, difficulty, skills
                         FROM students_course
-                        INNER JOIN students_professor_courses
-                        ON students_course.id = students_professor_courses.course_id
-                        INNER JOIN students_professor
-                        ON students_professor_courses.professor_id = students_professor.id
                         ORDER BY students_course.name''')
 
     print(rows.columns)
