@@ -9,14 +9,18 @@
             <li class="list-group-item d-flex">
                 <div class="col" ><b>Company</b></div>
                 <div class="col" ><b>Position</b></div>
+                <div class="col" ><b>Related Courses</b></div>
             </li>
-        {% for job in all_jobs %}
+        {% for job, courses in all_jobs %}
         <div class = 'list-group-item d-flex' >
             <div class = 'col'>
                 {{ job.company }}
             </div>
             <div class = 'col'>
                 {{ job.title }}
+            </div>
+            <div class = 'col'>
+                {{ courses }}
             </div>
         </div>
         {% endfor %}

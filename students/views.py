@@ -145,7 +145,22 @@ def jobs(request):
         form.save()
         return redirect('/students/jobs')
 
+    job_class_list = []
+    for job in all_jobs:
+        job_courses = Course.objects.raw('''SELECT *
+                                            FROM students_job_courses
+                                            JOIN students_course
+                                            ON students_job_courses.course_id = students_course.id
+                                            WHERE students_job_courses.job_id = %s''', [str(job.id)])
+        courses = []
+        for course in job_courses:
+            courses.append(course.name)
+        job_class_list.append(", ".join(courses))
+    all_jobs_complete = list(zip(all_jobs, job_class_list))
+    for job, courses in all_jobs_complete:
+        print(job.company)
+        print(courses)
     return render(request, 'students/jobs.html', {
-        'all_jobs': all_jobs,
+        'all_jobs': all_jobs_complete,
         'job_form':form
     })
