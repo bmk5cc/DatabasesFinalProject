@@ -1,81 +1,114 @@
 {% extends "students/base.html" %}
 {% block content %}
-    <div class="col-3" style = "padding-left: 5em;">
-    {% if user.is_authenticated %}
-        <ul class="list-group">
-            <h3 class ="list-group-item list-group-item-info">
-                My Courses
-            </h3>
-        {% for class in my_courses %}
-            <li class="list-group-item">
-                 {{class.name}}
-            </li>
-        {% endfor %}
-        </ul>
+    <div class="col-3" style="padding-left: 5em;">
         <div class="row">
-            <form method="post" action="/students/add_class/">
-            {% csrf_token %}
+            {% if user.is_authenticated %}
+                <ul class="list-group">
+                    <h3 class="list-group-item list-group-item-info">
+                        My Courses
+                    </h3>
+                    {% for class in my_courses %}
+                        <li class="list-group-item">
+                            {{ class.name }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="row">
+                    <form method="post" action="/students/add_class/">
+                        {% csrf_token %}
+                        <div class="row input-group" style="padding-top: 1em;">
+                            <input type="text" class="form-control" name="class" placeholder="Add class...">
+                            <span class="input-group-append">
+                                <input type="submit" class="btn btn-success" value="Submit">
+                            </span>
+                        </div>
+                        {% if error %}
+                            <div class="row">
+                                {{ error }}
+                            </div>
+                        {% endif %}
+                    </form>
+                </div>
                 <div class="row input-group" style="padding-top: 1em;">
-                    <input type="text" class="form-control" name="class" placeholder="Add class...">
-                    <span class="input-group-append">
-                        <input type="submit" class="btn btn-success" value="Submit">
-                    </span>
+                    <form method="post" action="/students/deleteClass/">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="class" placeholder="Delete class...">
+                            <span class="input-group-append">
+                                <input type="submit" class="btn btn-success" value="Submit">
+                            </span>
+                        </div>
+                        {% if error %}
+                            <div class="row">
+                                {{ error }}
+                            </div>
+                        {% endif %}
+                    </form>
                 </div>
-                {% if error %}
-                    <div class="row">
-                        {{ error }}
-                    </div>
-                {% endif %}
-        </form>
-        </div>
-         <div class="row input-group" style="padding-top: 1em;">
-            <form method="post" action="/students/deleteClass/">
-            {% csrf_token %}
-                <div class="input-group">
-                    <input type="text" class="form-control" name="class" placeholder="Delete class...">
-                    <span class="input-group-append">
-                        <input type="submit" class="btn btn-success" value="Submit">
-                    </span>
+            {% else %}
+                <div class="col">
+                    Please log in to view your courses!
                 </div>
-                {% if error %}
-                    <div class="row">
-                        {{ error }}
-                    </div>
-                {% endif %}
-        </form>
+            {% endif %}
         </div>
-	{% else %}
-        <div class="col">
-            Please Log in!
+        <div class="row">
+            <h3 class="row">Filter By:</h3>
+            <form method="post" action="/students/">
+                {% csrf_token %}
+                <input type="text" class="form-control" name="gpa" placeholder="GPA >=">
+                <input type="text" class="form-control" name="skills" placeholder="Skills">
+                <input type="submit" class="btn btn-success" value="Submit">
+            </form>
         </div>
-    {% endif %}
     </div>
-    <div class="col-8" style = "padding-left: 5em;">
-         <ul class="list-group container">
-            <h3 class ="list-group-item list-group-item-info">
-                All Courses
-            </h3>
-            <li class="list-group-item d-flex">
-                <div class="col" ><b>Name</b></div>
-                <div class="col" ><b>Avg GPA</b></div>
-                <div class="col" ><b>Skills</b></div>
-
-            </li>
-        {% for class in allCourse %}
-        <div class = 'list-group-item d-flex' >
-            <div class = 'col'>
-                {{ class.name }}
-            </div>
-            <div class = 'col'>
-                {{ class.difficulty }}
-            </div>
-            <div class = 'col'>
-                {{ class.skills }}
-            </div>
-
-        </div>
-        {% endfor %}
-         </ul>
+    <div class="col-8" style="padding-left: 5em;">
+        <ul class="list-group container">
+            {% if filtered_by %}
+                <h3 class="list-group-item list-group-item-info">
+                    All Courses filtered by {{ filtered_by }}
+                </h3>
+                <li class="list-group-item d-flex">
+                    <div class="col"><b>Name</b></div>
+                    <div class="col"><b>Avg GPA</b></div>
+                    <div class="col"><b>Skills</b></div>
+                </li>
+                {% for class in filtered %}
+                    <div class='list-group-item d-flex'>
+                        <div class='col'>
+                            {{ class.name }}
+                        </div>
+                        <div class='col'>
+                            {{ class.difficulty }}
+                        </div>
+                        <div class='col'>
+                            {{ class.skills }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h3 class="list-group-item list-group-item-info">
+                    All Courses
+                </h3>
+                <li class="list-group-item d-flex">
+                    <div class="col"><b>Name</b></div>
+                    <div class="col"><b>Avg GPA</b></div>
+                    <div class="col"><b>Skills</b></div>
+                </li>
+                {% for class in allCourse %}
+                    <div class='list-group-item d-flex'>
+                        <div class='col'>
+                            {{ class.name }}
+                        </div>
+                        <div class='col'>
+                            {{ class.difficulty }}
+                        </div>
+                        <div class='col'>
+                            {{ class.skills }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </ul>
     </div>
 
 {% endblock content %}

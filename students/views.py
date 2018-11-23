@@ -26,10 +26,25 @@ def index(request):
                         FROM students_course
                         ORDER BY students_course.name''')
 
-    print(rows.columns)
+    filtered = None
+    filtered_by = None
+    if request.method == 'POST':
+        gpa = request.POST['gpa']
+        skills = request.POST['skills']
+        if gpa:
+            filtered = Course.objects.raw('''SELECT students_course.id, students_course.name, difficulty, skills
+                                                    FROM students_course
+                                                    WHERE difficulty >= %s''', [gpa])
+            filtered_by = 'GPA >=' + gpa
+        if skills:
+            filtered = Course.objects.filter(skills__icontains=skills)
+            filtered_by = 'Skills = ' + skills
+
     return render(request, 'students/index.html', {
         'my_courses': my_courses,
-        'allCourse': rows
+        'allCourse': rows,
+        'filtered': filtered,
+        'filtered_by': filtered_by
     })
 
 def add_class(request):
