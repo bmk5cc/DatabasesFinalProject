@@ -10,7 +10,7 @@ Also add DB_SOCIAL_KEY and DB_SOCIAL_SECRET. You can either ask for mine, or mak
 If you want to log in to view the add and delete course functionality, modify students/fixtures/db1.json to have your computing id in one of the students.
 
 ## Running the server
-Install Django and run python migrate.py migrate
+Install Django and run python manage.py migrate
 
 Then run python manage.py loaddata db1.json
 
