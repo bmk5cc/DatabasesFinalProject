@@ -26,7 +26,7 @@ def index(request):
                         FROM students_course
                         ORDER BY students_course.name''')
 
-    filtered = None
+    filtered_complete = None
     filtered_by = None
     if request.method == 'POST':
         gpa = request.POST['gpa']
@@ -36,14 +36,52 @@ def index(request):
                                                     FROM students_course
                                                     WHERE difficulty >= %s''', [gpa])
             filtered_by = 'GPA >=' + gpa
+            class_professor_list = []
+            for course in filtered:
+                course_professors = Course.objects.raw('''SELECT students_professor.id, students_professor.name
+                                                            FROM students_professor_courses
+                                                            JOIN students_professor
+                                                            ON students_professor_courses.professor_id = students_professor.id
+                                                            WHERE students_professor_courses.course_id = %s''',
+                                                       [str(course.id)])
+                courses = []
+                for professor in course_professors:
+                    courses.append(professor.name)
+                class_professor_list.append(", ".join(courses))
+            filtered_complete = list(zip(filtered, class_professor_list))
+
         if skills:
             filtered = Course.objects.filter(skills__icontains=skills)
             filtered_by = 'Skills = ' + skills
+            for course in filtered:
+                course_professors = Course.objects.raw('''SELECT students_professor.id, students_professor.name
+                                                                       FROM students_professor_courses
+                                                                       JOIN students_professor
+                                                                       ON students_professor_courses.professor_id = students_professor.id
+                                                                       WHERE students_professor_courses.course_id = %s''',
+                                                       [str(course.id)])
+                courses = []
+                for professor in course_professors:
+                    courses.append(professor.name)
+                class_professor_list.append(", ".join(courses))
+            filtered_complete = list(zip(filtered, class_professor_list))
 
+    class_professor_list = []
+    for course in rows:
+        course_professors = Course.objects.raw('''SELECT students_professor.id, students_professor.name
+                                                FROM students_professor_courses
+                                                JOIN students_professor
+                                                ON students_professor_courses.professor_id = students_professor.id
+                                                WHERE students_professor_courses.course_id = %s''', [str(course.id)])
+        courses = []
+        for professor in course_professors:
+            courses.append(professor.name)
+        class_professor_list.append(", ".join(courses))
+    all_courses_complete = list(zip(rows, class_professor_list))
     return render(request, 'students/index.html', {
         'my_courses': my_courses,
-        'allCourse': rows,
-        'filtered': filtered,
+        'allCourse': all_courses_complete,
+        'filtered': filtered_complete,
         'filtered_by': filtered_by
     })
 
@@ -157,9 +195,6 @@ def jobs(request):
             courses.append(course.name)
         job_class_list.append(", ".join(courses))
     all_jobs_complete = list(zip(all_jobs, job_class_list))
-    for job, courses in all_jobs_complete:
-        print(job.company)
-        print(courses)
     return render(request, 'students/jobs.html', {
         'all_jobs': all_jobs_complete,
         'job_form':form

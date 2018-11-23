@@ -71,8 +71,9 @@
                     <div class="col"><b>Name</b></div>
                     <div class="col"><b>Avg GPA</b></div>
                     <div class="col"><b>Skills</b></div>
+                    <div class="col"><b>Professors</b></div>
                 </li>
-                {% for class in filtered %}
+                {% for class, professors in filtered %}
                     <div class='list-group-item d-flex'>
                         <div class='col'>
                             {{ class.name }}
@@ -82,6 +83,9 @@
                         </div>
                         <div class='col'>
                             {{ class.skills }}
+                        </div>
+                        <div class='col'>
+                            {{ professors }}
                         </div>
                     </div>
                 {% endfor %}
@@ -93,8 +97,9 @@
                     <div class="col"><b>Name</b></div>
                     <div class="col"><b>Avg GPA</b></div>
                     <div class="col"><b>Skills</b></div>
+                    <div class="col"><b>Professors</b></div>
                 </li>
-                {% for class in allCourse %}
+                {% for class, professors in allCourse %}
                     <div class='list-group-item d-flex'>
                         <div class='col'>
                             {{ class.name }}
@@ -104,6 +109,9 @@
                         </div>
                         <div class='col'>
                             {{ class.skills }}
+                        </div>
+                        <div class='col'>
+                            {{ professors }}
                         </div>
                     </div>
                 {% endfor %}
