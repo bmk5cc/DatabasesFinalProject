@@ -53,6 +53,7 @@ def index(request):
         if skills:
             filtered = Course.objects.filter(skills__icontains=skills)
             filtered_by = 'Skills = ' + skills
+            class_professor_list=[]
             for course in filtered:
                 course_professors = Course.objects.raw('''SELECT students_professor.id, students_professor.name
                                                                        FROM students_professor_courses
