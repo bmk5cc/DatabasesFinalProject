@@ -260,7 +260,8 @@
       "rating": 5,
       "department": 1,
       "courses": [
-        2
+        2,
+        12
       ]
     }
   },
@@ -404,7 +405,7 @@
     "fields": {
       "title": "Software Development Engineer",
       "company": "Google",
-      "courses": []
+      "courses": [4,6,12]
     }
   },
   {
@@ -413,7 +414,7 @@
     "fields": {
       "title": "Software Development Engineer in Test",
       "company": "Amazon",
-      "courses": []
+      "courses": [4,6,12]
     }
   },
   {
@@ -422,7 +423,7 @@
     "fields": {
       "title": "Web Frontend",
       "company": "Apple",
-      "courses": []
+      "courses": [12]
     }
   },
   {
@@ -431,7 +432,7 @@
     "fields": {
       "title": "Machine Learning Scientist",
       "company": "Airbnb",
-      "courses": []
+      "courses": [4,6]
     }
   },
   {
@@ -440,7 +441,7 @@
     "fields": {
       "title": "Data Scientist",
       "company": "Facebook",
-      "courses": []
+      "courses": [12]
     }
   },
   {
@@ -449,7 +450,7 @@
     "fields": {
       "title": "Network Engineer",
       "company": "Cisco",
-      "courses": []
+      "courses": [4,6]
     }
   },
   {
@@ -458,7 +459,7 @@
     "fields": {
       "title": "Hardware Engineer",
       "company": "Google",
-      "courses": []
+      "courses": [4,6,9]
     }
   },
   {
@@ -467,7 +468,7 @@
     "fields": {
       "title": "Software Development Engineer",
       "company": "Google",
-      "courses": []
+      "courses": [4,6,12]
     }
   },
   {
@@ -607,6 +608,19 @@
       "prereqs": [
         6,
         9
+      ]
+    }
+  },
+  {
+    "model": "students.course",
+    "pk": 12,
+    "fields": {
+      "name": "CS 4640",
+      "major": "Computer Science",
+      "difficulty": "3.47",
+      "skills": "HTML, PHP, Servlet, CSS, SQL, Databases, Javascript, Java, Web Development",
+      "prereqs": [
+        6
       ]
     }
   },
