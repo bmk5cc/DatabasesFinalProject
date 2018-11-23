@@ -27,7 +27,8 @@ def index(request):
                         INNER JOIN students_professor_courses
                         ON students_course.id = students_professor_courses.course_id
                         INNER JOIN students_professor
-                        ON students_professor_courses.professor_id = students_professor.id''')
+                        ON students_professor_courses.professor_id = students_professor.id
+                        ORDER BY students_course.name''')
 
     print(rows.columns)
     return render(request, 'students/index.html', {
@@ -79,13 +80,18 @@ def add_class(request):
             print(item.to_course_id)
 
         print("class prereqs")
-        print(set(class_prereqs_list))
+        print(class_name)
         print("my classes")
         print(set(my_courses_list))
+        if class_id_int in set(my_courses_list):
+            return render(request, 'students/index.html', {
+                'error': 'Already enrolled in course.'
+            })
         if not set(class_prereqs_list).issubset(set(my_courses_list)):
             return render(request, 'students/index.html', {
                 'error': 'Prereqs not satisfied.'
             })
+
         cursor = connections['default'].cursor()
 
         cursor.execute('''INSERT INTO students_student_courses(student_id, course_id)

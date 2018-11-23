@@ -476,7 +476,7 @@
     "fields": {
       "name": "CS 1110",
       "major": "Computer Science",
-      "difficulty": "3",
+      "difficulty": "2.36",
       "skills": "Programming, Python",
       "prereqs": []
     }
