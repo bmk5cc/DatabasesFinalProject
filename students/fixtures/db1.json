@@ -186,7 +186,7 @@
     "model": "students.student",
     "pk": 3,
     "fields": {
-      "name": "Mike Wang",
+      "name": "zw4dn",
       "major": "Computer Engineering, Electrical Engineering",
       "year": 4,
       "gpa": "4.00",

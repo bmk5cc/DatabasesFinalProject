@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView
 
 from students.forms import JobForm
-from students.models import Student, Course, Job
+from students.models import Student, Course, Job, Department
 
 
 # noinspection SqlNoDataSourceInspection
@@ -16,7 +16,7 @@ def index(request):
     username = request.user
     #Selects classes taken by logged in student
     my_courses = Student.objects.raw('''SELECT *
-                                     FROM students_course 
+                                     FROM students_course
                                      INNER JOIN students_student_courses
                                      ON students_course.id = students_student_courses.course_id
                                      INNER JOIN students_student
@@ -106,7 +106,7 @@ def add_class(request):
         for item in user_id:
             user_id_int = item.id
         my_courses = Student.objects.raw('''SELECT *
-                                             FROM students_course 
+                                             FROM students_course
                                              INNER JOIN students_student_courses
                                              ON students_course.id = students_student_courses.course_id
                                              INNER JOIN students_student
@@ -166,7 +166,7 @@ def deleteClass(request):
         for item in user_id:
             user_id_int = item.id
         cursor.execute('''DELETE FROM students_student_courses
-                                           WHERE students_student_courses.student_id = %s AND  
+                                           WHERE students_student_courses.student_id = %s AND
                                            students_student_courses.course_id = %s''', [user_id_int, class_id_int])
     return redirect('index',)
 def login(request):
@@ -199,4 +199,21 @@ def jobs(request):
     return render(request, 'students/jobs.html', {
         'all_jobs': all_jobs_complete,
         'job_form':form
+    })
+
+def department(request):
+    #all_departments = Department.objects.raw('''SELECT * FROM students_department''')
+    #for department in all_departments:
+
+    all_departments = Department.objects.raw(
+    '''SELECT students_department.id, students_department.name AS dept_name, AVG(gpa) AS avg_gpa
+    FROM students_student
+    INNER JOIN students_student_departments
+    ON students_student.id = students_student_departments.student_id
+    INNER JOIN students_department
+    ON students_student_departments.department_id = students_department.id
+    GROUP BY students_department.name''')
+
+    return render(request, 'students/department.html', {
+        'all_departments': all_departments
     })

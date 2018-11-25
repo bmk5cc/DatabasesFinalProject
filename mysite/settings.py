@@ -114,8 +114,14 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
+
+
+
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('DB_SOCIAL_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('DB_SOCIAL_SECRET')
+
+#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '139956398710-6misrut0o2ninq798bhpc8arffocs87c.apps.googleusercontent.com'
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'Om11dI28LCwlpNVQBNwJh9uT'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
