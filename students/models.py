@@ -32,3 +32,5 @@ class Course(models.Model):
 
 class Department(models.Model):
     name = models.CharField(max_length=128, null=False)
+    def __str__(self):
+        return self.name
