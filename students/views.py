@@ -26,6 +26,12 @@ def index(request):
                         FROM students_course
                         ORDER BY students_course.name''')
 
+    skills = set([])
+    for course in my_courses:
+        skills.add(course.skills)
+
+    skills_list = ", ".join(skills)
+
     filtered_complete = None
     filtered_by = None
     if request.method == 'POST':
@@ -83,7 +89,8 @@ def index(request):
         'my_courses': my_courses,
         'allCourse': all_courses_complete,
         'filtered': filtered_complete,
-        'filtered_by': filtered_by
+        'filtered_by': filtered_by,
+        'skills_list': skills_list
     })
 
 def add_class(request):
@@ -201,6 +208,7 @@ def jobs(request):
 
     job_class_list = []
     recommendedList = []
+    skill_list = []
     for job in all_jobs:
         job_courses = Course.objects.raw('''SELECT *
                                             FROM students_job_courses
@@ -208,11 +216,13 @@ def jobs(request):
                                             ON students_job_courses.course_id = students_course.id
                                             WHERE students_job_courses.job_id = %s''', [str(job.id)])
         courses = []
+        skills = set([])
         for course in job_courses:
             courses.append(course.name)
+            skills.add(course.skills)
             print(course.name)
         job_class_list.append(", ".join(courses))
-
+        skill_list.append(", ".join(skills))
         if set(courses).issubset(set(my_courses_list)):
             print(courses)
             print(my_courses_list)
@@ -220,7 +230,7 @@ def jobs(request):
         else:
             recommendedList.append(False)
 
-    all_jobs_complete = list(zip(all_jobs, job_class_list, recommendedList))
+    all_jobs_complete = list(zip(all_jobs, job_class_list, skill_list, recommendedList))
 
 
     return render(request, 'students/jobs.html', {
