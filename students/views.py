@@ -184,7 +184,23 @@ def jobs(request):
         form.save()
         return redirect('/students/jobs')
 
+    username = request.user
+    my_courses = Student.objects.raw('''SELECT *
+                                                 FROM students_course
+                                                 INNER JOIN students_student_courses
+                                                 ON students_course.id = students_student_courses.course_id
+                                                 INNER JOIN students_student
+                                                 ON students_student_courses.student_id = students_student.id
+                                                 WHERE students_student.name == %s''', [str(username)])
+
+
+    my_courses_list = []
+    for course in my_courses:
+        my_courses_list.append(course.name)
+
+
     job_class_list = []
+    recommendedList = []
     for job in all_jobs:
         job_courses = Course.objects.raw('''SELECT *
                                             FROM students_job_courses
@@ -194,8 +210,19 @@ def jobs(request):
         courses = []
         for course in job_courses:
             courses.append(course.name)
+            print(course.name)
         job_class_list.append(", ".join(courses))
-    all_jobs_complete = list(zip(all_jobs, job_class_list))
+
+        if set(courses).issubset(set(my_courses_list)):
+            print(courses)
+            print(my_courses_list)
+            recommendedList.append(True)
+        else:
+            recommendedList.append(False)
+
+    all_jobs_complete = list(zip(all_jobs, job_class_list, recommendedList))
+
+
     return render(request, 'students/jobs.html', {
         'all_jobs': all_jobs_complete,
         'job_form':form
