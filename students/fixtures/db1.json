@@ -216,6 +216,27 @@
     }
   },
   {
+    "model": "students.student",
+    "pk": 5,
+    "fields": {
+      "name": "ah7by",
+      "major": "Computer Science",
+      "year": 4,
+      "gpa": "4.00",
+      "departments": [
+        4,
+        5
+      ],
+      "courses": [
+        1,
+        4,
+        5,
+        6,
+        9
+      ]
+    }
+  },
+  {
     "model": "students.professor",
     "pk": 1,
     "fields": {
